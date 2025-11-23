@@ -169,7 +169,7 @@
 	</Anchors>
 	<Layers>
 <Layer level="OVERLAY">
-	<Texture name="$parentTexture" file="Interface\AddOns\PhoenixStyle\phoenix_addon">
+	<Texture name="$parentTexture" file="Interface\AddOns\ChickenStyle\phoenix_addon">
 	<Anchors>
 	<Anchor point="CENTER" relativePoint="CENTER"><Offset x="0" y="-40"/></Anchor>
 	</Anchors>

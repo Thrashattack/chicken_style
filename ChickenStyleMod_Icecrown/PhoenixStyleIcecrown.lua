@@ -1395,7 +1395,7 @@ end
 
 if event == "ADDON_LOADED" then
 
-if arg1=="PhoenixStyleMod_Icecrown" then
+if arg1=="ChickenStyleMod_Icecrown" then
 
 
 if psicobnovperemen==nil then

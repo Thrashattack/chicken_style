@@ -184,12 +184,12 @@ end --конец по пулу
 
 if psmsgtimestart42>0 and CurrentTimepull>psmsgtimestart42+0.4 then
 psmsgtimestart42=0
-SendAddonMessage("PhoenixStyle", "myname:"..psnamemsgsend.."++mychat:"..psmsgmychat42.."++", "RAID")
+SendAddonMessage("ChickenStyle", "myname:"..psnamemsgsend.."++mychat:"..psmsgmychat42.."++", "RAID")
 end
 
 if psmsgtimestart43>0 and CurrentTimepull>psmsgtimestart43+0.4 then
 psmsgtimestart43=0
-SendAddonMessage("PhoenixStyle", "myname:"..psnamemsgsend.."++mychat:"..psmsgmychat43.."++", "RAID")
+SendAddonMessage("ChickenStyle", "myname:"..psnamemsgsend.."++mychat:"..psmsgmychat43.."++", "RAID")
 end
 
 
@@ -199,9 +199,9 @@ psmsgtimestart=0
 --тут отправка в аддон канал инфы
 
 	if pssendinterboj==nil then
-SendAddonMessage("PhoenixStyle", "myname:"..psnamemsgsend.."++mychat:"..psmsgmychat.."++", "RAID")
+SendAddonMessage("ChickenStyle", "myname:"..psnamemsgsend.."++mychat:"..psmsgmychat.."++", "RAID")
 	else
-SendAddonMessage("PhoenixStyle", "myname:"..psnamemsgsend.."++mychat:"..psmsgmychat.."++fightend++", "RAID")
+SendAddonMessage("ChickenStyle", "myname:"..psnamemsgsend.."++mychat:"..psmsgmychat.."++fightend++", "RAID")
 	end
 
 end
@@ -437,7 +437,7 @@ end
 if event == "CHAT_MSG_ADDON" then
 
 --получение данных при задержке аннонса1
-if arg1=="PhoenixStyle" and psmsgwaiting>0 then
+if arg1=="ChickenStyle" and psmsgwaiting>0 then
 local _,psstriniz1=string.find(arg2, "mychat:")
 if psstriniz1==nil then else
 local psstrfine1=string.find(arg2, "++", psstriniz1)
@@ -471,7 +471,7 @@ end
 end
 
 --получение данных при задержке аннонса2
-if arg1=="PhoenixStyle" and psmsgwaiting42>0 then
+if arg1=="ChickenStyle" and psmsgwaiting42>0 then
 
 local _,psstriniz1=string.find(arg2, "mychat:")
 if psstriniz1==nil then else
@@ -498,7 +498,7 @@ end
 --конец получения данных о аннонсе2
 
 --получение данных при задержке аннонса3
-if arg1=="PhoenixStyle" and psmsgwaiting43>0 then
+if arg1=="ChickenStyle" and psmsgwaiting43>0 then
 
 local _,psstriniz1=string.find(arg2, "mychat:")
 if psstriniz1==nil then else
@@ -528,7 +528,7 @@ end
 
 --аддон аннонсит конец боя
 --if arg1=="PhoenixStyle" and psmsgwaiting==0 then
-if arg1=="PhoenixStyle" then
+if arg1=="ChickenStyle" then
 if string.find(arg2, "fightend") then
 psnotanonsemore=GetTime()
 local _,psstriniz1=string.find(arg2, "mychat:")
@@ -537,7 +537,7 @@ psnotanonsemorechat=string.lower(string.sub(arg2, psstriniz1+1, psstrfine1-1))
 end
 end
 
-if arg1=="PhoenixStyle" then
+if arg1=="ChickenStyle" then
 local _,psstriniz1=string.find(arg2, "mychat:")
 local psstrfine1=string.find(arg2, "++", psstriniz1)
 if (psmsgwaiting42==0 or (psmsgwaiting42>0 and psmsgmychat42~=string.lower(string.sub(arg2, psstriniz1+1, psstrfine1-1)))) and (psmsgwaiting43==0 or (psmsgwaiting43>0 and psmsgmychat43~=string.lower(string.sub(arg2, psstriniz1+1, psstrfine1-1)))) then
@@ -652,7 +652,7 @@ end
 
 --инфо о профе
 if arg1=="PSiccprof" and arg4~=UnitName("player") then
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown") then psiccprofcheckspam(arg2) end
+if IsAddOnLoaded("ChickenStyleMod_Icecrown") then psiccprofcheckspam(arg2) end
 end
 
 
@@ -696,7 +696,7 @@ local psgood=0
 	if (rank > 0 and arg2==name) then psgood=1 end end
 
 if psgood==1 then
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown") then psiccwipereport() end
+if IsAddOnLoaded("ChickenStyleMod_Icecrown") then psiccwipereport() end
 end
 
 
@@ -713,7 +713,7 @@ end
 
 if event == "ADDON_LOADED" then
 
-if arg1=="PhoenixStyle" then
+if arg1=="ChickenStyle" then
 if psoldvern>psversion then
 PSFmain3_Textoldv:Show()
 end
@@ -880,12 +880,12 @@ PSFmain3:Show()
 	--wipe
 	elseif(string.lower(cmd)=="wipe" or string.lower(cmd)=="вайп" or string.lower(cmd)=="результат" or string.lower(cmd)=="dfqg" or string.lower(cmd)=="цшзу" or string.lower(cmd)=="ваип") then
 
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown") then psiccwipereport() end
+if IsAddOnLoaded("ChickenStyleMod_Icecrown") then psiccwipereport() end
 
 	--lanatel
 	elseif(string.lower(cmd)=="vampyr" or string.lower(cmd)=="vampyric" or string.lower(cmd)=="vampyrs" or string.lower(cmd)=="food" or string.lower(cmd)=="еда" or string.lower(cmd)=="еду" or string.lower(cmd)=="вампир" or string.lower(cmd)=="вампиры") then
 
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown") then psicclanafoodmark() else out ("|cff99ffffPhoenixStyle|r - |cffff0000"..pserror.."|r "..psiccnoloaderr2)
+if IsAddOnLoaded("ChickenStyleMod_Icecrown") then psicclanafoodmark() else out ("|cff99ffffPhoenixStyle|r - |cffff0000"..pserror.."|r "..psiccnoloaderr2)
 
 end
 
@@ -998,16 +998,16 @@ end
 function PSF_buttonicecrown()
 PSF_closeallpr()
 if(thisaddonwork)then
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown")==nil then
-LoadAddOn("PhoenixStyleMod_Icecrown")
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown") then
+if IsAddOnLoaded("ChickenStyleMod_Icecrown")==nil then
+LoadAddOn("ChickenStyleMod_Icecrown")
+if IsAddOnLoaded("ChickenStyleMod_Icecrown") then
 	if psicgalochki[1][1]==0 then else
 print("|cff99ffffPhoenixStyle|r - "..psmoduleload.." "..psleftmenu7.."!")
 	end
 end
 end
 
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown") then
+if IsAddOnLoaded("ChickenStyleMod_Icecrown") then
 PSF_buttonicecrown2()
 else
 PSF_closeallpr()
@@ -1078,7 +1078,7 @@ end
 function PSF_closeallpr()
 if IsAddOnLoaded("PhoenixStyleMod_Coliseum") then PSF_closeallprColiseum() end
 if IsAddOnLoaded("PhoenixStyleMod_Ulduar") then PSF_closeallprUlduar() end
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown") then PSF_closeallpricecrown() end
+if IsAddOnLoaded("ChickenStyleMod_Icecrown") then PSF_closeallpricecrown() end
 PSFmain3:Hide()
 PSFmain4:Hide()
 PSFmain5:Hide()
@@ -1252,7 +1252,7 @@ function PSFvkladdon()
 			out("|cff99ffffPhoenixStyle|r - "..psaddonmy.." |cffff0000"..psaddonoff.."|r.")
 			thisaddonwork=false
 			psmylogin=GetTime()
-			if IsAddOnLoaded("PhoenixStyleMod_Icecrown") then psiccwipereport() end
+			if IsAddOnLoaded("ChickenStyleMod_Icecrown") then psiccwipereport() end
 		end
 end
 psmapbuttreflesh()
@@ -1592,9 +1592,9 @@ SendAddonMessage("PS-myvers", psversion, "raid")
 end
 	end
 
-if IsAddOnLoaded("PhoenixStyleMod_Icecrown")==nil and wasicecrowntryload==nil then
+if IsAddOnLoaded("ChickenStyleMod_Icecrown")==nil and wasicecrowntryload==nil then
 wasicecrowntryload=1
-local loaded, reason = LoadAddOn("PhoenixStyleMod_Icecrown")
+local loaded, reason = LoadAddOn("ChickenStyleMod_Icecrown")
 if loaded then
 print("|cff99ffffPhoenixStyle|r - "..psmoduleload.." "..psleftmenu7.."!")
 else
@@ -2354,7 +2354,7 @@ end
 
 
 function PS_MinimapButton_Details(tt, ldb)
-	tt:SetText("PhoenixStyle")
+	tt:SetText("ChickenStyle")
 
 end
 
@@ -2387,7 +2387,7 @@ if pstextffgdgdf==nil then
 pstextffgdgdf=1
 
 tpsicon = PS_MinimapButton:CreateTexture(nil,"MEDIUM")
-tpsicon:SetTexture("Interface\\AddOns\\PhoenixStyle\\icon_phoenix_e")
+tpsicon:SetTexture("Interface\\AddOns\\ChickenStyle\\icon_phoenix_e")
 tpsicon:SetWidth(21)
 tpsicon:SetHeight(21)
 tpsicon:SetPoint("TOPLEFT",7,-6)
@@ -2404,9 +2404,9 @@ PS_MinimapButton:Show()
 	end
 
 if thisaddononoff and thisaddonwork then
-tpsicon:SetTexture("Interface\\AddOns\\PhoenixStyle\\icon_phoenix_e")
+tpsicon:SetTexture("Interface\\AddOns\\ChickenStyle\\icon_phoenix_e")
 else
-tpsicon:SetTexture("Interface\\AddOns\\PhoenixStyle\\icon_phoenix_d")
+tpsicon:SetTexture("Interface\\AddOns\\ChickenStyle\\icon_phoenix_d")
 end
 	else
 	PS_MinimapButton:Hide()
