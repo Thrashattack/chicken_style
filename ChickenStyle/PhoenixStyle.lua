@@ -1714,12 +1714,12 @@ end
 function Calculate_GP(event, amount)
 	local gp_map = {
 		['lady_spirits'] = amount > 1 and 100 * amount or 0,
-		['lady_mc_damage'] = amount > 35 and 50 * ( amount / 35 ) or 0,
+		['lady_mc_damage'] = (amount / 1000) > 35 and 50 * ( (amount / 1000) / 35 ) or 0,
 		['festergut_maleable'] = 50 * amount,
 		['festergut_pungent'] = 50,
 		['pp_maleable'] = 100 * amount,
 		['pp_chocking'] = 100 * amount,
-		['sindy_backlash'] = amount > 75 and 100 * (amount / 50) or 0,
+		['sindy_backlash'] = (amount / 1000) > 75 and 100 * ((amount / 1000) / 50) or 0,
 		['sindy_blistering'] = 100,
 		['sindy_frost_bomb'] = 100,
 	}
@@ -1732,23 +1732,15 @@ function PrepareGP(event, players, amounts)
 		local playerName = players[i]
 		local amount = amounts[i]
 
-		 if type(amount) == "string" then
-			if string.find(amount, "k") then
-				amount = string.sub(amount, 1, -2)
-				amount = tonumber(amount)
-			else
-				amount = tonumber(amount)
-			end
+		if type(amount) == "string" then
+			amount = tonumber(amount)
 		end
 
 		if not GP_LIST_PER_EVENT[event] then GP_LIST_PER_EVENT[event] = {} end
 		if not GP_LIST_PER_EVENT[event][playerName] then GP_LIST_PER_EVENT[event][playerName] = 0 end
 
-		if GP_LIST_PER_EVENT[event][playerName] then
-			GP_LIST_PER_EVENT[event][playerName] = GP_LIST_PER_EVENT[event][playerName] + Calculate_GP(event, amount)
-		else
-			GP_LIST_PER_EVENT[event][playerName] = Calculate_GP(event, amount)
-		end
+		
+		GP_LIST_PER_EVENT[event][playerName] = Calculate_GP(event, amount)
 	end
 end
 
