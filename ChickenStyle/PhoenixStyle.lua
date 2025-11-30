@@ -4,6 +4,7 @@
 
 function PhoenixStyle_OnLoad()
 GP_LIST_PER_EVENT = {}
+INFO_LIST_PER_EVENT = {}
 pslocalem()
 pslocaleuim()
 pslocalezonem()
@@ -1737,10 +1738,15 @@ function PrepareGP(event, players, amounts)
 		end
 
 		if not GP_LIST_PER_EVENT[event] then GP_LIST_PER_EVENT[event] = {} end
+		if not INFO_LIST_PER_EVENT[event] then INFO_LIST_PER_EVENT[event] = {} end
 		if not GP_LIST_PER_EVENT[event][playerName] then GP_LIST_PER_EVENT[event][playerName] = 0 end
+		if not INFO_LIST_PER_EVENT[event][playerName] then INFO_LIST_PER_EVENT[event][playerName] = "" end
 
 		
 		GP_LIST_PER_EVENT[event][playerName] = Calculate_GP(event, amount)
+		
+		local formattedAmount = amount > 100 and string.format("%d", (amount / 1000)) .. "k"  or amount
+		INFO_LIST_PER_EVENT[event][playerName] = " got " .. formattedAmount .. " from " .. event
 	end
 end
 
@@ -1876,13 +1882,13 @@ function OpenAwardGPWindow()
 
 			-- Description
 			local descriptionText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightLeft")
-            descriptionText:SetPoint("LEFT", 30, 0)
+            descriptionText:SetPoint("LEFT", 25, -15)
             descriptionText:SetWidth(200)
-            descriptionText:SetText(data.amount > 100 and (data.amount / 1000) .. "k" .. " " .. eventName or data.amount .. " " .. eventName)
+            descriptionText:SetText("|cff00ff00" .. INFO_LIST_PER_EVENT[eventName][pName] .. "|r")
 
             local editBox = CreateFrame("EditBox", nil, row)
             editBox:SetSize(80, 20)
-            editBox:SetPoint("LEFT", nameText, "RIGHT", 10, 0)
+            editBox:SetPoint("LEFT", nameText, "RIGHT", 10, -15)
             editBox:SetAutoFocus(false)
             editBox:SetNumeric(true)
             editBox:SetFontObject("ChatFontNormal")
@@ -2012,6 +2018,7 @@ function OpenAwardGPWindow()
     closeBtn:SetScript("OnClick", function()
         f:Hide()
         table.wipe(GP_LIST_PER_EVENT)
+		table.wipe(INFO_LIST_PER_EVENT)
         f.commandQueue = {} -- Clear pending queue
         if f.awardAllBtn then f.awardAllBtn:Enable() end
         print("GP Window closed/cleared.")
