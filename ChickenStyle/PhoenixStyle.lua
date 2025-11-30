@@ -795,7 +795,7 @@ function PhoenixStyleFailbot_Command(msg)
 			}, { 5, 1, 2, 3 })
 			PrepareGP('lady_mc_damage', {
 				'Dagarus', 'Thrashattack', 'Spektral', 'Fourbit'
-			}, { 51, 120, 20, 35 })
+			}, { 51000, 120000, 20000, 35000 })
 			OpenAwardGPWindow()
 
 			return
@@ -819,13 +819,13 @@ function PhoenixStyleFailbot_Command(msg)
 		elseif string.lower(boss) == "sindy" then
 			PrepareGP('sindy_backlash', {
 				'Dagarus', 'Thrashattack', 'Spektral', 'Fourbit'
-			}, { "55k", 120, "200", 34 })
+			}, { "55000", 120000, "200000", 34000 })
 			PrepareGP('sindy_blistering', {
 				'Fourbit'
 			}, { 0 })
 			PrepareGP('sindy_frost_bomb', {
 				'Dagarus'
-			}, { "120k" })
+			}, { "120000" })
 			OpenAwardGPWindow()
 
 			return
@@ -1882,6 +1882,12 @@ function OpenAwardGPWindow()
             nameText:SetWidth(200)
             nameText:SetText(pName)
 
+			-- Description
+			local descriptionText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightLeft")
+            descriptionText:SetPoint("LEFT", 30, 0)
+            descriptionText:SetWidth(200)
+            descriptionText:SetText(data.amount > 100 and (data.amount / 1000) .. "k" .. " " .. eventName or data.amount .. " " .. eventName)
+
             local editBox = CreateFrame("EditBox", nil, row)
             editBox:SetSize(80, 20)
             editBox:SetPoint("LEFT", nameText, "RIGHT", 10, 0)
@@ -1890,7 +1896,6 @@ function OpenAwardGPWindow()
             editBox:SetFontObject("ChatFontNormal")
             editBox:SetTextInsets(5, 5, 0, 0) -- Padding for text inside box
             editBox:SetText(math.floor(data.amount))
-            
             -- Add a clean backdrop to the EditBox
             editBox:SetBackdrop({
                 bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
