@@ -4,6 +4,7 @@
 
 function PhoenixStyle_OnLoad()
 GP_LIST_PER_EVENT = {}
+INFO_LIST_PER_EVENT = {}
 pslocalem()
 pslocaleuim()
 pslocalezonem()
@@ -795,7 +796,7 @@ function PhoenixStyleFailbot_Command(msg)
 			}, { 5, 1, 2, 3 })
 			PrepareGP('lady_mc_damage', {
 				'Dagarus', 'Thrashattack', 'Spektral', 'Fourbit'
-			}, { 51, 120, 20, 35 })
+			}, { 51000, 120000, 20000, 35000 })
 			OpenAwardGPWindow()
 
 			return
@@ -819,13 +820,13 @@ function PhoenixStyleFailbot_Command(msg)
 		elseif string.lower(boss) == "sindy" then
 			PrepareGP('sindy_backlash', {
 				'Dagarus', 'Thrashattack', 'Spektral', 'Fourbit'
-			}, { "55k", 120, "200", 34 })
+			}, { "55000", 120000, "200000", 34000 })
 			PrepareGP('sindy_blistering', {
 				'Fourbit'
 			}, { 0 })
 			PrepareGP('sindy_frost_bomb', {
 				'Dagarus'
-			}, { "120k" })
+			}, { "120000" })
 			OpenAwardGPWindow()
 
 			return
@@ -1737,10 +1738,15 @@ function PrepareGP(event, players, amounts)
 		end
 
 		if not GP_LIST_PER_EVENT[event] then GP_LIST_PER_EVENT[event] = {} end
+		if not INFO_LIST_PER_EVENT[event] then INFO_LIST_PER_EVENT[event] = {} end
 		if not GP_LIST_PER_EVENT[event][playerName] then GP_LIST_PER_EVENT[event][playerName] = 0 end
+		if not INFO_LIST_PER_EVENT[event][playerName] then INFO_LIST_PER_EVENT[event][playerName] = "" end
 
 		
 		GP_LIST_PER_EVENT[event][playerName] = Calculate_GP(event, amount)
+		
+		local formattedAmount = amount > 100 and string.format("%d", (amount / 1000)) .. "k"  or amount
+		INFO_LIST_PER_EVENT[event][playerName] = " got " .. formattedAmount .. " from " .. event
 	end
 end
 
@@ -1874,15 +1880,20 @@ function OpenAwardGPWindow()
             nameText:SetWidth(200)
             nameText:SetText(pName)
 
+			-- Description
+			local descriptionText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightLeft")
+            descriptionText:SetPoint("LEFT", 25, -15)
+            descriptionText:SetWidth(200)
+            descriptionText:SetText("|cff00ff00" .. INFO_LIST_PER_EVENT[eventName][pName] .. "|r")
+
             local editBox = CreateFrame("EditBox", nil, row)
             editBox:SetSize(80, 20)
-            editBox:SetPoint("LEFT", nameText, "RIGHT", 10, 0)
+            editBox:SetPoint("LEFT", nameText, "RIGHT", 10, -15)
             editBox:SetAutoFocus(false)
             editBox:SetNumeric(true)
             editBox:SetFontObject("ChatFontNormal")
             editBox:SetTextInsets(5, 5, 0, 0) -- Padding for text inside box
             editBox:SetText(math.floor(data.amount))
-            
             -- Add a clean backdrop to the EditBox
             editBox:SetBackdrop({
                 bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
@@ -2007,6 +2018,7 @@ function OpenAwardGPWindow()
     closeBtn:SetScript("OnClick", function()
         f:Hide()
         table.wipe(GP_LIST_PER_EVENT)
+		table.wipe(INFO_LIST_PER_EVENT)
         f.commandQueue = {} -- Clear pending queue
         if f.awardAllBtn then f.awardAllBtn:Enable() end
         print("GP Window closed/cleared.")
